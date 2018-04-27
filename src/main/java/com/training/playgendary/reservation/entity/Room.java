@@ -10,6 +10,9 @@ import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Entity class for the Room table mapping
+ */
 @Entity
 @Table(name = "Room")
 public class Room implements Serializable {

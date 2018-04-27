@@ -10,16 +10,30 @@ import org.aspectj.lang.annotation.Before;
 
 import java.util.Arrays;
 
+/**
+ * Contains methods-advices for the service layer methods logging automation.
+ */
 @Aspect
 public class ServiceLogger {
     private static final Logger Log = LogManager.getLogger(ServiceLogger.class.getSimpleName());
 
+    /**
+     * Writes info log before the method execution where the method name satisfies particular pattern.
+     * @param joinPoint Well-defined point in the execution of a program - Method call
+     * @throws Throwable
+     */
     @Before("execution(* com.training.playgendary.reservation.service.impl.*ServiceImpl.*(..))")
     public void logBeforeExecution(JoinPoint joinPoint) throws Throwable {
         Log.info("Method has been called : " + joinPoint.getSignature().getName());
         Log.info("Transferred parameters : " + Arrays.toString(joinPoint.getArgs()));
     }
 
+    /**
+     * Writes info log after returning the method execution result where the method name satisfies particular pattern.
+     * @param joinPoint Well-defined point in the execution of a program - Method execution
+     * @param result    Value that has been returned by particular method.
+     * @throws Throwable
+     */
     @AfterReturning(
             pointcut = "execution(* com.training.playgendary.reservation.service.impl.*ServiceImpl.*(..))",
             returning = "result")
@@ -29,6 +43,11 @@ public class ServiceLogger {
         Log.info("Method returned value is : " + result);
     }
 
+    /**
+     * Writes error log after throwing exception while method execution where the method name satisfies particular pattern.
+     * @param joinPoint Well-defined point in the execution of a program - Method execution
+     * @param error Error object that has been thrown while method execution/
+     */
     @AfterThrowing(
             pointcut = "execution(* com.training.playgendary.reservation.service.impl.*ServiceImpl.*(..))",
             throwing = "error")

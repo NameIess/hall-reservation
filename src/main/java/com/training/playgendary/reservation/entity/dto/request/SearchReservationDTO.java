@@ -6,6 +6,9 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Data-transfer object for the transporting following entities details: Employee, Reservation.
+ */
 public class SearchReservationDTO implements Serializable {
     @NotNull
     private Long employeeId;

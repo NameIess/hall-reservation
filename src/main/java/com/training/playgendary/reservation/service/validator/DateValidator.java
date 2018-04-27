@@ -6,6 +6,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.Date;
 
+/**
+ * Contains methods for date validation
+ */
 @Component("dateValidator")
 public class DateValidator {
     private static final int FRIDAY = 5;
@@ -15,6 +18,12 @@ public class DateValidator {
     public DateValidator() {
     }
 
+    /**
+     * Wraps the @start and the @end date into DateTime objects. Checks if the @startTime and the @endTime are consistent. Invokes the additional validation method if needed.
+     * @param start Date of the beginning range
+     * @param end   Date of the end range
+     * @return  Positive or negative validation result
+     */
     public boolean isValid(Date start, Date end) {
         boolean isValid = false;
 
@@ -28,6 +37,12 @@ public class DateValidator {
         return isValid;
     }
 
+    /**
+     * Checks if the period from the @startTime till the @endTime contains only workdays. Invokes the additional validation method if needed.
+     * @param startTime Date of the beginning range
+     * @param endTime   Date of the end range
+     * @return  Positive or negative validation result
+     */
     private boolean isWorkTimePeriod(DateTime startTime, DateTime endTime) {
         boolean isValid = false;
 
@@ -44,6 +59,13 @@ public class DateValidator {
         return isValid;
     }
 
+    /**
+     * Checks if date satisfies following requirements:
+     * 1) Day of the week is in between monday and friday
+     * 2) Hour of the day is in between 10 and 18 o'clock.
+     * @param dateTime  Date that should be validated
+     * @return  Positive or negative validation result
+     */
     private boolean isWorkTimeValue(DateTime dateTime) {
         boolean isValid = true;
 

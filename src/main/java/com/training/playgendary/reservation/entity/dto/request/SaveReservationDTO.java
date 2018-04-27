@@ -5,6 +5,9 @@ import org.springframework.format.annotation.DateTimeFormat;
 import javax.validation.constraints.NotNull;
 import java.util.Date;
 
+/**
+ * Data-transfer object for the transporting following entities details: Employee, Room, Reservation.
+ */
 public class SaveReservationDTO {
     @NotNull
     private Long employeeId;

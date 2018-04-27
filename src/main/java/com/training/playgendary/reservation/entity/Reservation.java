@@ -8,6 +8,9 @@ import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * Entity class for the Reservation table mapping
+ */
 @Entity
 @Table(name = "Reservation")
 public class Reservation implements Serializable {
