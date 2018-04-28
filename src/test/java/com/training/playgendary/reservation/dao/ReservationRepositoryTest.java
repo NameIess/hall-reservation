@@ -31,12 +31,6 @@ public class ReservationRepositoryTest extends AbstractTestNGSpringContextTests 
     @Autowired
     private ReservationRepository underTest;
 
-    @BeforeSuite
-    public void doSetup() {
-        dateFormat = new SimpleDateFormat(TestResources.DATE_TIME_FORMAT);
-    }
-
-
     @DataProvider(name = "validEmployeeAndDates")
     public static Object[][] validEmployeeAndDates() throws ParseException {
         return new Object[][]{
@@ -146,6 +140,10 @@ public class ReservationRepositoryTest extends AbstractTestNGSpringContextTests 
         };
     }
 
+    @BeforeSuite
+    public void doSetup() {
+        dateFormat = new SimpleDateFormat(TestResources.DATE_TIME_FORMAT);
+    }
 
     private void verifyReservationSearchByRoomAndDates(Date startTime, Date endTime, Room room, int expectedReservationAmount) {
         List<Reservation> reservations = underTest.findAllInStartTimeAndEndTimeRange(room, startTime, endTime);
@@ -171,7 +169,6 @@ public class ReservationRepositoryTest extends AbstractTestNGSpringContextTests 
 
         Assert.assertNotNull(reservations);
 
-        System.out.println("RAS: " + reservations);
         int actualAmount = reservations.size();
         Assert.assertEquals(TestResources.TABLE_RESERVATION_ROWS_AMOUNT, actualAmount);
     }

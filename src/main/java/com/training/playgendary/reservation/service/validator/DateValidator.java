@@ -14,15 +14,17 @@ public class DateValidator {
     private static final int FRIDAY = 5;
     private static final int WORKDAY_START_HOUR = 10;
     private static final int WORKDAY_END_HOUR = 18;
+    private static final int ZERO = 0;
 
     public DateValidator() {
     }
 
     /**
      * Wraps the @start and the @end date into DateTime objects. Checks if the @startTime and the @endTime are consistent. Invokes the additional validation method if needed.
+     *
      * @param start Date of the beginning range
      * @param end   Date of the end range
-     * @return  Positive or negative validation result
+     * @return Positive or negative validation result
      */
     public boolean isValid(Date start, Date end) {
         boolean isValid = false;
@@ -39,9 +41,10 @@ public class DateValidator {
 
     /**
      * Checks if the period from the @startTime till the @endTime contains only workdays. Invokes the additional validation method if needed.
+     *
      * @param startTime Date of the beginning range
      * @param endTime   Date of the end range
-     * @return  Positive or negative validation result
+     * @return Positive or negative validation result
      */
     private boolean isWorkTimePeriod(DateTime startTime, DateTime endTime) {
         boolean isValid = false;
@@ -50,8 +53,8 @@ public class DateValidator {
         int startDayOfWeek = startTime.getDayOfWeek();
 
         if (startDayOfWeek + daysPeriod <= FRIDAY) {
-            boolean isStartTimeValid = isWorkTimeValue(startTime);
-            boolean isEndTimeValid = isWorkTimeValue(endTime);
+            boolean isStartTimeValid = isWorkTimeHour(startTime);
+            boolean isEndTimeValid = isWorkTimeHour(endTime);
 
             isValid = isStartTimeValid && isEndTimeValid;
         }
@@ -60,26 +63,20 @@ public class DateValidator {
     }
 
     /**
-     * Checks if date satisfies following requirements:
-     * 1) Day of the week is in between monday and friday
-     * 2) Hour of the day is in between 10 and 18 o'clock.
-     * @param dateTime  Date that should be validated
-     * @return  Positive or negative validation result
+     * Checks if date satisfies following requirement:
+     * 1) Hour of the day is in between 10 and 18 o'clock.
+     *
+     * @param dateTime Date that should be validated
+     * @return Positive or negative validation result
      */
-    private boolean isWorkTimeValue(DateTime dateTime) {
+    private boolean isWorkTimeHour(DateTime dateTime) {
         boolean isValid = true;
 
-        int dayOfWeek = dateTime.getDayOfWeek();
+        int hourOfDay = dateTime.getHourOfDay();
+        int minuteOfHour = dateTime.getMinuteOfHour();
 
-        if (dayOfWeek > FRIDAY) {
+        if (hourOfDay < WORKDAY_START_HOUR || hourOfDay > WORKDAY_END_HOUR || (hourOfDay == WORKDAY_END_HOUR && minuteOfHour > ZERO)) {
             isValid = false;
-        } else {
-            int hourOfDay = dateTime.getHourOfDay();
-            int minuteOfHour = dateTime.getMinuteOfHour();
-
-            if (hourOfDay < WORKDAY_START_HOUR || hourOfDay > WORKDAY_END_HOUR || (hourOfDay == WORKDAY_END_HOUR && minuteOfHour > 0)) {
-                isValid = false;
-            }
         }
 
         return isValid;

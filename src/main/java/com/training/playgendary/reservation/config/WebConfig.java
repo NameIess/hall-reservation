@@ -11,6 +11,9 @@ import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.ServletRegistration;
 
+/**
+ * Contains deployment configuration.
+ */
 public class WebConfig extends AbstractAnnotationConfigDispatcherServletInitializer {
 
     @Override

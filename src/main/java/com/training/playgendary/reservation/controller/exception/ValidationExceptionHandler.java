@@ -15,6 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Contains method-advice for unified exception handling.
+ */
 @ControllerAdvice(annotations = RestController.class)
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class ValidationExceptionHandler {
@@ -30,14 +33,14 @@ public class ValidationExceptionHandler {
     }
 
     private ErrorFormInfo processFieldErrors(List<FieldError> fieldErrors) {
-        ErrorFormInfo dto = new ErrorFormInfo();
+        ErrorFormInfo errorFormInfo = new ErrorFormInfo();
 
         for (FieldError fieldError : fieldErrors) {
             String message = fieldError.getDefaultMessage();
             String field = fieldError.getField();
-            dto.addFieldError(field, message);
+            errorFormInfo.addFieldError(field, message);
         }
 
-        return dto;
+        return errorFormInfo;
     }
 }

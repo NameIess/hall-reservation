@@ -19,7 +19,9 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
-
+/**
+ * Contains dataSource configuration.
+ */
 @Configuration
 @EnableTransactionManagement
 @EnableJpaRepositories(basePackages = "com.training.playgendary.reservation")
@@ -77,6 +79,7 @@ public class JpaConfig {
         properties.setProperty("hibernate.jdbc.batch_size", env.getProperty("hibernate.jdbc.batch_size"));
         properties.setProperty("hibernate.show_sql", env.getProperty("hibernate.show_sql"));
         properties.setProperty("hibernate.format_sql", env.getProperty("hibernate.format_sql"));
+        properties.setProperty("hibernate.current_session_context_class", env.getProperty("hibernate.current_session_context_class"));
 
         return properties;
     }

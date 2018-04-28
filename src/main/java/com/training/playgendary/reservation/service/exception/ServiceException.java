@@ -2,6 +2,9 @@ package com.training.playgendary.reservation.service.exception;
 
 import java.io.Serializable;
 
+/**
+ * Basic exception class of the Services layer
+ */
 public class ServiceException extends Exception implements Serializable {
     public ServiceException() {
     }

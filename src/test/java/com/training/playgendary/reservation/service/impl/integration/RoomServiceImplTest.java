@@ -1,4 +1,4 @@
-package com.training.playgendary.reservation.service.impl;
+package com.training.playgendary.reservation.service.impl.integration;
 
 import com.training.playgendary.reservation.config.TestConfig;
 import com.training.playgendary.reservation.entity.Room;
@@ -40,7 +40,6 @@ public class RoomServiceImplTest extends AbstractTestNGSpringContextTests {
 
         Assert.assertEquals(actualResult, expectedResult);
     }
-
 
     @Test
     public void shouldSaveRoomAndReturnSavedEntityWhenRoomValid() {

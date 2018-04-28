@@ -3,7 +3,6 @@ package com.training.playgendary.reservation.entity;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import java.io.Serializable;
@@ -70,7 +69,7 @@ public class Room implements Serializable {
         this.description = description;
     }
 
-    @OneToMany(mappedBy = "room", fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @OneToMany(mappedBy = "room")
     public Set<Reservation> getReservations() {
         return reservations;
     }
@@ -90,14 +89,28 @@ public class Room implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Room)) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof Room)) {
+            return false;
+        }
 
         Room room = (Room) o;
 
-        if (capacity != room.capacity) return false;
-        if (id != null ? !id.equals(room.id) : room.id != null) return false;
-        if (number != null ? !number.equals(room.number) : room.number != null) return false;
+        if (capacity != room.capacity) {
+            return false;
+        }
+
+        if (id != null ? !id.equals(room.id) : room.id != null) {
+            return false;
+        }
+
+        if (number != null ? !number.equals(room.number) : room.number != null) {
+            return false;
+        }
+
         return description != null ? description.equals(room.description) : room.description == null;
     }
 

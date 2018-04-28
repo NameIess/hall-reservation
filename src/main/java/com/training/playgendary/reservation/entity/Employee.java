@@ -66,7 +66,7 @@ public class Employee implements Serializable {
         this.personal_number = personal_number;
     }
 
-    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "employee")
     public Set<Reservation> getReservations() {
         return reservations;
     }
@@ -87,14 +87,28 @@ public class Employee implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Employee)) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof Employee)) {
+            return false;
+        }
 
         Employee employee = (Employee) o;
 
-        if (id != null ? !id.equals(employee.id) : employee.id != null) return false;
-        if (first_name != null ? !first_name.equals(employee.first_name) : employee.first_name != null) return false;
-        if (last_name != null ? !last_name.equals(employee.last_name) : employee.last_name != null) return false;
+        if (id != null ? !id.equals(employee.id) : employee.id != null) {
+            return false;
+        }
+
+        if (first_name != null ? !first_name.equals(employee.first_name) : employee.first_name != null) {
+            return false;
+        }
+
+        if (last_name != null ? !last_name.equals(employee.last_name) : employee.last_name != null) {
+            return false;
+        }
+
         return personal_number != null ? personal_number.equals(employee.personal_number) : employee.personal_number == null;
     }
 
@@ -105,5 +119,16 @@ public class Employee implements Serializable {
         result = 31 * result + (last_name != null ? last_name.hashCode() : 0);
         result = 31 * result + (personal_number != null ? personal_number.hashCode() : 0);
         return result;
+    }
+
+    @Override
+    public String toString() {
+        final StringBuilder sb = new StringBuilder("Employee{");
+        sb.append("id=").append(id);
+        sb.append(", first_name='").append(first_name).append('\'');
+        sb.append(", last_name='").append(last_name).append('\'');
+        sb.append(", personal_number='").append(personal_number).append('\'');
+        sb.append('}');
+        return sb.toString();
     }
 }

@@ -48,15 +48,24 @@ public class SearchReservationDTO implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SearchReservationDTO)) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof SearchReservationDTO)) {
+            return false;
+        }
 
         SearchReservationDTO that = (SearchReservationDTO) o;
 
-        if (getEmployeeId() != null ? !getEmployeeId().equals(that.getEmployeeId()) : that.getEmployeeId() != null)
+        if (getEmployeeId() != null ? !getEmployeeId().equals(that.getEmployeeId()) : that.getEmployeeId() != null) {
             return false;
-        if (getStartTime() != null ? !getStartTime().equals(that.getStartTime()) : that.getStartTime() != null)
+        }
+
+        if (getStartTime() != null ? !getStartTime().equals(that.getStartTime()) : that.getStartTime() != null) {
             return false;
+        }
+
         return getEndTime() != null ? getEndTime().equals(that.getEndTime()) : that.getEndTime() == null;
     }
 
@@ -69,8 +78,7 @@ public class SearchReservationDTO implements Serializable {
     }
 
     @Override
-    public String
-    toString() {
+    public String toString() {
         final StringBuilder sb = new StringBuilder("SearchReservationDTO{");
         sb.append("employeeId=").append(employeeId);
         sb.append(", startTime=").append(startTime);

@@ -6,6 +6,7 @@ import com.training.playgendary.reservation.entity.Reservation;
 import com.training.playgendary.reservation.entity.Room;
 import com.training.playgendary.reservation.entity.dto.request.SaveReservationDTO;
 import com.training.playgendary.reservation.entity.dto.request.SearchReservationDTO;
+import com.training.playgendary.reservation.entity.factory.ReservationFactory;
 import com.training.playgendary.reservation.service.EmployeeService;
 import com.training.playgendary.reservation.service.ReservationService;
 import com.training.playgendary.reservation.service.RoomService;
@@ -27,13 +28,15 @@ public class ReservationServiceImpl implements ReservationService {
     private EmployeeService employeeService;
     private RoomService roomService;
     private DateValidator dateValidator;
+    private ReservationFactory reservationFactory;
 
     @Autowired
-    public ReservationServiceImpl(ReservationRepository reservationRepository, EmployeeService employeeService, RoomService roomService, DateValidator dateValidator) {
+    public ReservationServiceImpl(ReservationRepository reservationRepository, EmployeeService employeeService, RoomService roomService, DateValidator dateValidator, ReservationFactory reservationFactory) {
         this.reservationRepository = reservationRepository;
         this.employeeService = employeeService;
         this.roomService = roomService;
         this.dateValidator = dateValidator;
+        this.reservationFactory = reservationFactory;
     }
 
     @Override
@@ -43,7 +46,6 @@ public class ReservationServiceImpl implements ReservationService {
         return reservations;
     }
 
-    //  Refactor
     @Override
     public Reservation save(SaveReservationDTO saveReservationDTO) throws ServiceException {
 
@@ -56,7 +58,7 @@ public class ReservationServiceImpl implements ReservationService {
 
         boolean isDatesValid = dateValidator.isValid(startTime, endTime);
         if (!isDatesValid) {
-            throw new ServiceException("Dates are not valid");
+            throw new ServiceException("Trouble within save: dates are not valid");
         }
 
         List<Reservation> reservationList = reservationRepository.findAllInStartTimeAndEndTimeRange(room, startTime, endTime);
@@ -65,17 +67,12 @@ public class ReservationServiceImpl implements ReservationService {
             throw new ServiceException("Reservation is not available for following time: from " + startTime + " till " + endTime);
         }
 
-        Reservation reservation = new Reservation();
-        reservation.setStartTime(startTime);
-        reservation.setEndTime(endTime);
-        employee.addReservation(reservation);
-        room.addReservation(reservation);
-
+        Reservation reservation = reservationFactory.create(employee, room, startTime, endTime);
         Reservation savedReservation = reservationRepository.save(reservation);
+
         return savedReservation;
     }
 
-    //  Refactor
     @Override
     @Transactional(readOnly = true)
     public List<Reservation> findAllByEmployeeAndDateRange(SearchReservationDTO searchReservationDTO) throws ServiceException {
@@ -89,7 +86,7 @@ public class ReservationServiceImpl implements ReservationService {
             List<Reservation> employeeReservations = reservationRepository.findAllByStartTimeGreaterThanEqualAndEndTimeLessThanEqualAndEmployee(startTime, endTime, employee);
             return employeeReservations;
         } else {
-            throw new ServiceException("Dates are not valid");
+            throw new ServiceException("Trouble within findAllByEmployeeAndDateRange: dates are not valid");
         }
     }
 }

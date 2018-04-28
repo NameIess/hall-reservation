@@ -14,6 +14,9 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import java.util.List;
 
+/**
+ * Contains application context configuration.
+ */
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = {"com.training.playgendary.reservation"})

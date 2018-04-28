@@ -76,18 +76,6 @@ public class DateValidatorTest extends AbstractTestNGSpringContextTests {
         dateFormat = new SimpleDateFormat(TestResources.DATE_TIME_FORMAT);
     }
 
-//    POWERMOCK ?
-//    @DataProvider(name = "invalidStartTimeGreaterThanEqualEndTime")
-//    public static Object[][] invalidStartTimeGreaterThanEqualEndTimeAndValidEndTime() throws ParseException {
-//        return new Object[][]{
-//                {dateFormat.parse("2018-04-18 10:50:00"), dateFormat.parse("2018-04-18 10:30:00")},
-//                {dateFormat.parse("2018-04-18 17:50:00"), dateFormat.parse("2018-04-18 17:30:00")},
-//                {dateFormat.parse("2018-04-18 10:00:00"), dateFormat.parse("2018-04-18 10:00:00")},
-//                {dateFormat.parse("2018-04-18 18:00:00"), dateFormat.parse("2018-04-18 18:00:00")},
-//                {dateFormat.parse("2018-04-18 17:59:59"), dateFormat.parse("2018-04-18 10:00:00")}
-//        };
-//    }
-
     private void verifyNegativeCase(Date startTime, Date endTime) {
         boolean actualResult = underTest.isValid(startTime, endTime);
 

@@ -3,12 +3,13 @@ package com.training.playgendary.reservation.entity.dto.request;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotNull;
+import java.io.Serializable;
 import java.util.Date;
 
 /**
  * Data-transfer object for the transporting following entities details: Employee, Room, Reservation.
  */
-public class SaveReservationDTO {
+public class SaveReservationDTO implements Serializable {
     @NotNull
     private Long employeeId;
 
@@ -58,16 +59,28 @@ public class SaveReservationDTO {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof SaveReservationDTO)) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof SaveReservationDTO)) {
+            return false;
+        }
 
         SaveReservationDTO that = (SaveReservationDTO) o;
 
-        if (getEmployeeId() != null ? !getEmployeeId().equals(that.getEmployeeId()) : that.getEmployeeId() != null)
+        if (getEmployeeId() != null ? !getEmployeeId().equals(that.getEmployeeId()) : that.getEmployeeId() != null) {
             return false;
-        if (getRoomId() != null ? !getRoomId().equals(that.getRoomId()) : that.getRoomId() != null) return false;
-        if (getStartTime() != null ? !getStartTime().equals(that.getStartTime()) : that.getStartTime() != null)
+        }
+
+        if (getRoomId() != null ? !getRoomId().equals(that.getRoomId()) : that.getRoomId() != null) {
             return false;
+        }
+
+        if (getStartTime() != null ? !getStartTime().equals(that.getStartTime()) : that.getStartTime() != null) {
+            return false;
+        }
+
         return getEndTime() != null ? getEndTime().equals(that.getEndTime()) : that.getEndTime() == null;
     }
 

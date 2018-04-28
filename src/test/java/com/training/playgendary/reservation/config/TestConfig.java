@@ -28,8 +28,8 @@ public class TestConfig {
     public DataSource dataSource() {
         EmbeddedDatabaseBuilder databaseBuilder = new EmbeddedDatabaseBuilder();
         databaseBuilder.setType(EmbeddedDatabaseType.H2);
-        databaseBuilder.addScript("/db/dump/tableCreation.sql");
-        databaseBuilder.addScript("/db/dump/dataInsertation.sql");
+        databaseBuilder.addScript("/db/dump/testing/tableCreation.sql");
+        databaseBuilder.addScript("/db/dump/testing/dataInsertion.sql");
         EmbeddedDatabase database = databaseBuilder.build();
 
         return database;

@@ -3,7 +3,6 @@ package com.training.playgendary.reservation.entity;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
-import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
@@ -34,7 +33,7 @@ public class Reservation implements Serializable {
         this.id = id;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(optional = false)
     @JoinColumn(name = "empl_id")
     public Employee getEmployee() {
         return employee;
@@ -44,7 +43,7 @@ public class Reservation implements Serializable {
         this.employee = employee;
     }
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.ALL})
+    @ManyToOne(optional = false)
     @JoinColumn(name = "room_id")
     public Room getRoom() {
         return room;
@@ -78,15 +77,32 @@ public class Reservation implements Serializable {
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Reservation)) return false;
+        if (this == o) {
+            return true;
+        }
+
+        if (!(o instanceof Reservation)) {
+            return false;
+        }
 
         Reservation that = (Reservation) o;
 
-        if (id != null ? !id.equals(that.id) : that.id != null) return false;
-        if (employee != null ? !employee.equals(that.employee) : that.employee != null) return false;
-        if (room != null ? !room.equals(that.room) : that.room != null) return false;
-        if (startTime != null ? !startTime.equals(that.startTime) : that.startTime != null) return false;
+        if (id != null ? !id.equals(that.id) : that.id != null) {
+            return false;
+        }
+
+        if (employee != null ? !employee.equals(that.employee) : that.employee != null) {
+            return false;
+        }
+
+        if (room != null ? !room.equals(that.room) : that.room != null) {
+            return false;
+        }
+
+        if (startTime != null ? !startTime.equals(that.startTime) : that.startTime != null) {
+            return false;
+        }
+
         return endTime != null ? endTime.equals(that.endTime) : that.endTime == null;
     }
 
@@ -104,8 +120,6 @@ public class Reservation implements Serializable {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Reservation{");
         sb.append("id=").append(id);
-        sb.append(", employee=").append(employee);
-        sb.append(", room=").append(room);
         sb.append(", startTime=").append(startTime);
         sb.append(", endTime=").append(endTime);
         sb.append('}');

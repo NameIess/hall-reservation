@@ -10,9 +10,12 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+/**
+ *  Contains method-advice for unified exception handling.
+ */
 @ControllerAdvice(annotations = RestController.class)
 @Order(Ordered.LOWEST_PRECEDENCE)
-public class ControllerExceptionHandler extends ResponseEntityExceptionHandler {
+public class ServiceExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(ServiceException.class)
     public ResponseEntity<String> handleServiceException(ServiceException exception) {

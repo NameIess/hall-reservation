@@ -1,11 +1,10 @@
-package com.training.playgendary.reservation.service.impl;
+package com.training.playgendary.reservation.service.impl.integration;
 
 import com.training.playgendary.reservation.config.TestConfig;
 import com.training.playgendary.reservation.entity.Reservation;
+import com.training.playgendary.reservation.entity.dto.request.SaveReservationDTO;
 import com.training.playgendary.reservation.entity.dto.request.SearchReservationDTO;
-import com.training.playgendary.reservation.service.EmployeeService;
 import com.training.playgendary.reservation.service.ReservationService;
-import com.training.playgendary.reservation.service.RoomService;
 import com.training.playgendary.reservation.service.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ActiveProfiles;
@@ -27,12 +26,6 @@ public class ReservationServiceImplTest extends AbstractTestNGSpringContextTests
 
     @Autowired
     private ReservationService reservationService;
-
-    @Autowired
-    private EmployeeService employeeService;
-
-    @Autowired
-    private RoomService roomService;
 
     @DataProvider(name = "validEmployeeAndDateRange")
     public static Object[][] validEmployeeAndDateRange() throws ParseException {
@@ -58,6 +51,32 @@ public class ReservationServiceImplTest extends AbstractTestNGSpringContextTests
                 {TestResources.SEARCH_RESERVATION_EMPL_ID_1_FIND_0_INVALID_START_TIME},
                 {TestResources.SEARCH_RESERVATION_EMPL_ID_3_FIND_0_INVALID_START_AND_END_TIME},
                 {TestResources.SEARCH_RESERVATION_EMPL_ID_3_FIND_0_INVALID_END_TIME},
+        };
+    }
+
+    @DataProvider(name = "saveDTOInvalidDate")
+    public static Object[][] validEmployeeIdAndValidRoomIdAndInvalidDateRange() throws ParseException {
+        return new Object[][]{
+                {TestResources.SAVE_RESERVATION_INVALID_END_TIME},
+                {TestResources.SAVE_RESERVATION_INVALID_START_TIME},
+                {TestResources.SAVE_RESERVATION_INVALID_START_TIME_AND_END_TIME},
+        };
+    }
+
+    @DataProvider(name = "saveDTOAlreadyReserved")
+    public static Object[][] validEmployeeIdAndValidRoomIdAndInvalidDateRangeAlreadyReserved() throws ParseException {
+        return new Object[][]{
+                {TestResources.SAVE_RESERVATION_EMPL_ID_1_FIND_ROOM_1_ALREADY_RESERVED},
+                {TestResources.SAVE_RESERVATION_EMPL_ID_3_FIND_ROOM_1_ALREADY_RESERVED},
+                {TestResources.SAVE_RESERVATION_EMPL_ID_3_FIND_ROOM_2_ALREADY_RESERVED},
+        };
+    }
+
+    @DataProvider(name = "saveDTOValid")
+    public static Object[][] validEmployeeIdAndValidRoomIdAndValidDateRange() throws ParseException {
+        return new Object[][]{
+                {TestResources.SAVE_RESERVATION_VALID_1},
+                {TestResources.SAVE_RESERVATION_VALID_2},
         };
     }
 
@@ -91,4 +110,21 @@ public class ReservationServiceImplTest extends AbstractTestNGSpringContextTests
         reservationService.findAllByEmployeeAndDateRange(searchReservationDTO);
     }
 
+    @Test(expectedExceptions = ServiceException.class, dataProvider = "saveDTOInvalidDate")
+    public void shouldThrowServiceExceptionWhenDatesInvalid(SaveReservationDTO saveReservationDTO) throws ServiceException {
+        reservationService.save(saveReservationDTO);
+    }
+
+    @Test(expectedExceptions = ServiceException.class, dataProvider = "saveDTOAlreadyReserved")
+    public void shouldThrowServiceExceptionWhenDatesAlreadyReserved(SaveReservationDTO saveReservationDTO) throws ServiceException {
+        reservationService.save(saveReservationDTO);
+    }
+
+    @Test(dataProvider = "saveDTOValid")
+    public void shouldSaveReservationWhenDataRangeValid(SaveReservationDTO saveReservationDTO) throws ServiceException {
+        Reservation actualResult = reservationService.save(saveReservationDTO);
+
+        Assert.assertEquals(actualResult.getStartTime(), saveReservationDTO.getStartTime());
+        Assert.assertEquals(actualResult.getEndTime(), saveReservationDTO.getEndTime());
+    }
 }

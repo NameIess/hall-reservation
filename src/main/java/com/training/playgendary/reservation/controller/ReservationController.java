@@ -18,6 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.List;
 
+/**
+ * Controller that provides View layer with access to business logic operations.
+ */
+
 @RestController
 @RequestMapping(value = "/conference")
 public class ReservationController {
