@@ -13,15 +13,15 @@ import com.training.playgendary.reservation.service.RoomService;
 import com.training.playgendary.reservation.service.exception.ServiceException;
 import com.training.playgendary.reservation.service.validator.DateValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 
 @Service("reservationService")
-@Repository
 @Transactional
 public class ReservationServiceImpl implements ReservationService {
     private ReservationRepository reservationRepository;
@@ -85,8 +85,21 @@ public class ReservationServiceImpl implements ReservationService {
         if (dateValidator.isValid(startTime, endTime)) {
             List<Reservation> employeeReservations = reservationRepository.findAllByStartTimeGreaterThanEqualAndEndTimeLessThanEqualAndEmployee(startTime, endTime, employee);
             return employeeReservations;
-        } else {
-            throw new ServiceException("Trouble within findAllByEmployeeAndDateRange: dates are not valid");
         }
+
+        throw new ServiceException("Trouble within findAllByEmployeeAndDateRange: dates are not valid");
+    }
+
+    @Override
+    public Reservation findById(Long id) {
+        Optional<Reservation> optionalReservation = reservationRepository.findById(id);
+
+        Reservation reservation = null;
+
+        if (optionalReservation.isPresent()) {
+            reservation = optionalReservation.get();
+        }
+
+        return reservation;
     }
 }

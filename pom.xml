@@ -44,6 +44,7 @@
         <test.scope>test</test.scope>
         <junit.version>4.12</junit.version>
         <mockito-all.version>1.9.5</mockito-all.version>
+        <swagger.version>2.5.0</swagger.version>
     </properties>
 
     <build>
@@ -244,6 +245,18 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-core</artifactId>
             <version>${log4j-core.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger-ui</artifactId>
+            <version>${swagger.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>io.springfox</groupId>
+            <artifactId>springfox-swagger2</artifactId>
+            <version>${swagger.version}</version>
         </dependency>
 
         <!--TESTING-->

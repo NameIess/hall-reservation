@@ -3,6 +3,7 @@ package com.training.playgendary.reservation.controller;
 import com.training.playgendary.reservation.entity.Employee;
 import com.training.playgendary.reservation.entity.Reservation;
 import com.training.playgendary.reservation.entity.Room;
+import com.training.playgendary.reservation.entity.dto.request.PageableDTO;
 import com.training.playgendary.reservation.entity.dto.request.SaveReservationDTO;
 import com.training.playgendary.reservation.entity.dto.request.SearchReservationDTO;
 import com.training.playgendary.reservation.service.EmployeeService;
@@ -10,10 +11,8 @@ import com.training.playgendary.reservation.service.ReservationService;
 import com.training.playgendary.reservation.service.RoomService;
 import com.training.playgendary.reservation.service.exception.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.data.domain.Page;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
@@ -36,10 +35,17 @@ public class ReservationController {
         this.roomService = roomService;
     }
 
-    @RequestMapping(value = "/employee", method = RequestMethod.GET)
-    public List<Employee> findAllEmployees() {
-        List<Employee> employees = employeeService.findAll();
-        return employees;
+    @RequestMapping(value = "/employee", method = RequestMethod.PUT)
+    public Page<Employee> findAllEmployees(@RequestBody PageableDTO pageableDTO) {
+        Page<Employee> employeePage = employeeService.findAll(pageableDTO);
+
+        return employeePage;
+    }
+
+    @RequestMapping(value = "/employee/{id}", method = RequestMethod.GET)
+    public Employee findEmployee(@PathVariable("id") long id) {
+        Employee employee = employeeService.findById(id);
+        return employee;
     }
 
     @RequestMapping(value = "/employee", method = RequestMethod.POST)
@@ -54,6 +60,12 @@ public class ReservationController {
         return rooms;
     }
 
+    @RequestMapping(value = "/room/{id}", method = RequestMethod.GET)
+    public Room findRoom(@PathVariable("id") long id) {
+        Room room = roomService.findById(id);
+        return room;
+    }
+
     @RequestMapping(value = "/room", method = RequestMethod.POST)
     public Room saveRoom(@Valid @RequestBody Room room) {
         Room savedRoom = roomService.save(room);
@@ -64,6 +76,12 @@ public class ReservationController {
     public List<Reservation> findAllReservations() {
         List<Reservation> reservations = reservationService.findAll();
         return reservations;
+    }
+
+    @RequestMapping(value = "/reservation/{id}", method = RequestMethod.GET)
+    public Reservation findReservation(@PathVariable("id") long id) {
+        Reservation reservation = reservationService.findById(id);
+        return reservation;
     }
 
     @RequestMapping(value = "/reservation/employee", method = RequestMethod.GET)

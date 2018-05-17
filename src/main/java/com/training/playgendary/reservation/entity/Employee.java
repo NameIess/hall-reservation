@@ -1,5 +1,8 @@
 package com.training.playgendary.reservation.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -11,12 +14,13 @@ import java.util.Set;
  * Entity class for the Employee table mapping
  */
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "Employee")
 public class Employee implements Serializable {
     private Long id;
-    private String first_name;
-    private String last_name;
-    private String personal_number;
+    private String firstName;
+    private String lastName;
+    private String personalNumber;
     private Set<Reservation> reservations = new HashSet<>();
 
     public Employee() {
@@ -36,37 +40,37 @@ public class Employee implements Serializable {
     @NotNull
     @Size(min = 1, max = 150, message = "error.employee.nameSize")
     @Column(name = "first_name")
-    public String getFirst_name() {
-        return first_name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFirst_name(String first_name) {
-        this.first_name = first_name;
+    public void setFirstName(String first_name) {
+        this.firstName = first_name;
     }
 
     @NotNull
     @Size(min = 1, max = 150, message = "error.employee.nameSize")
     @Column(name = "last_name")
-    public String getLast_name() {
-        return last_name;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setLast_name(String last_name) {
-        this.last_name = last_name;
+    public void setLastName(String last_name) {
+        this.lastName = last_name;
     }
 
     @NotNull
     @Size(min = 1, max = 255, message = "error.employee.personalNumberSize")
     @Column(name = "personal_number")
-    public String getPersonal_number() {
-        return personal_number;
+    public String getPersonalNumber() {
+        return personalNumber;
     }
 
-    public void setPersonal_number(String personal_number) {
-        this.personal_number = personal_number;
+    public void setPersonalNumber(String personal_number) {
+        this.personalNumber = personal_number;
     }
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
     public Set<Reservation> getReservations() {
         return reservations;
     }
@@ -101,23 +105,23 @@ public class Employee implements Serializable {
             return false;
         }
 
-        if (first_name != null ? !first_name.equals(employee.first_name) : employee.first_name != null) {
+        if (firstName != null ? !firstName.equals(employee.firstName) : employee.firstName != null) {
             return false;
         }
 
-        if (last_name != null ? !last_name.equals(employee.last_name) : employee.last_name != null) {
+        if (lastName != null ? !lastName.equals(employee.lastName) : employee.lastName != null) {
             return false;
         }
 
-        return personal_number != null ? personal_number.equals(employee.personal_number) : employee.personal_number == null;
+        return personalNumber != null ? personalNumber.equals(employee.personalNumber) : employee.personalNumber == null;
     }
 
     @Override
     public int hashCode() {
         int result = id != null ? id.hashCode() : 0;
-        result = 31 * result + (first_name != null ? first_name.hashCode() : 0);
-        result = 31 * result + (last_name != null ? last_name.hashCode() : 0);
-        result = 31 * result + (personal_number != null ? personal_number.hashCode() : 0);
+        result = 31 * result + (firstName != null ? firstName.hashCode() : 0);
+        result = 31 * result + (lastName != null ? lastName.hashCode() : 0);
+        result = 31 * result + (personalNumber != null ? personalNumber.hashCode() : 0);
         return result;
     }
 
@@ -125,9 +129,9 @@ public class Employee implements Serializable {
     public String toString() {
         final StringBuilder sb = new StringBuilder("Employee{");
         sb.append("id=").append(id);
-        sb.append(", first_name='").append(first_name).append('\'');
-        sb.append(", last_name='").append(last_name).append('\'');
-        sb.append(", personal_number='").append(personal_number).append('\'');
+        sb.append(", firstName='").append(firstName).append('\'');
+        sb.append(", lastName='").append(lastName).append('\'');
+        sb.append(", personalNumber='").append(personalNumber).append('\'');
         sb.append('}');
         return sb.toString();
     }

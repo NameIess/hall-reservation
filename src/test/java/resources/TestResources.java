@@ -24,33 +24,33 @@ public class TestResources {
     public static final Employee VALID_EMPLOYEE_ID_1 = new Employee();
     static {
         VALID_EMPLOYEE_ID_1.setId(1L);
-        VALID_EMPLOYEE_ID_1.setFirst_name("Alex");
-        VALID_EMPLOYEE_ID_1.setLast_name("Nosko");
-        VALID_EMPLOYEE_ID_1.setPersonal_number("ANJD97");
+        VALID_EMPLOYEE_ID_1.setFirstName("Alex");
+        VALID_EMPLOYEE_ID_1.setLastName("Nosko");
+        VALID_EMPLOYEE_ID_1.setPersonalNumber("ANJD97");
     }
 
     public static final Employee VALID_EMPLOYEE_ID_2 = new Employee();
     static {
         VALID_EMPLOYEE_ID_2.setId(2L);
-        VALID_EMPLOYEE_ID_2.setFirst_name("Tinner");
-        VALID_EMPLOYEE_ID_2.setLast_name("Turner");
-        VALID_EMPLOYEE_ID_2.setPersonal_number("TTID98");
+        VALID_EMPLOYEE_ID_2.setFirstName("Tinner");
+        VALID_EMPLOYEE_ID_2.setLastName("Turner");
+        VALID_EMPLOYEE_ID_2.setPersonalNumber("TTID98");
     }
 
     public static final Employee VALID_EMPLOYEE_ID_3 = new Employee();
     static {
         VALID_EMPLOYEE_ID_3.setId(3L);
-        VALID_EMPLOYEE_ID_3.setFirst_name("Scott");
-        VALID_EMPLOYEE_ID_3.setLast_name("Tiger");
-        VALID_EMPLOYEE_ID_3.setPersonal_number("STMD73");
+        VALID_EMPLOYEE_ID_3.setFirstName("Scott");
+        VALID_EMPLOYEE_ID_3.setLastName("Tiger");
+        VALID_EMPLOYEE_ID_3.setPersonalNumber("STMD73");
     }
 
     public static final Employee VALID_EMPLOYEE_ID_4 = new Employee();
     static {
         VALID_EMPLOYEE_ID_4.setId(4L);
-        VALID_EMPLOYEE_ID_4.setFirst_name("John");
-        VALID_EMPLOYEE_ID_4.setLast_name("Smith");
-        VALID_EMPLOYEE_ID_4.setPersonal_number("JSSD64");
+        VALID_EMPLOYEE_ID_4.setFirstName("John");
+        VALID_EMPLOYEE_ID_4.setLastName("Smith");
+        VALID_EMPLOYEE_ID_4.setPersonalNumber("JSSD64");
     }
 
     public static final List<Employee> EMPLOYEES = new ArrayList<>();
@@ -63,17 +63,17 @@ public class TestResources {
 
     public static final Employee TEST_EMPLOYEE = new Employee();
     static {
-        TEST_EMPLOYEE.setFirst_name("TestEmployeeFirstName");
-        TEST_EMPLOYEE.setLast_name("TestEmployeeLastName");
-        TEST_EMPLOYEE.setPersonal_number("TEST_EMP");
+        TEST_EMPLOYEE.setFirstName("TestEmployeeFirstName");
+        TEST_EMPLOYEE.setLastName("TestEmployeeLastName");
+        TEST_EMPLOYEE.setPersonalNumber("TEST_EMP");
     }
 
     public static final Employee INVALID_EMPLOYEE_ID_0 = new Employee();
     static {
         INVALID_EMPLOYEE_ID_0.setId(0L);
-        INVALID_EMPLOYEE_ID_0.setFirst_name("Mitch");
-        INVALID_EMPLOYEE_ID_0.setLast_name("Lucker");
-        INVALID_EMPLOYEE_ID_0.setPersonal_number("SS2012");
+        INVALID_EMPLOYEE_ID_0.setFirstName("Mitch");
+        INVALID_EMPLOYEE_ID_0.setLastName("Lucker");
+        INVALID_EMPLOYEE_ID_0.setPersonalNumber("SS2012");
     }
 
     public static final Room VALID_ROOM_ID_1 = new Room();

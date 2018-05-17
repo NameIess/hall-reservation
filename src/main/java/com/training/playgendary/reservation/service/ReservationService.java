@@ -38,4 +38,11 @@ public interface ReservationService {
      * @throws ServiceException Exception to be thrown if the @searchReservationDTO data is not valid.
      */
     List<Reservation> findAllByEmployeeAndDateRange(SearchReservationDTO searchReservationDTO) throws ServiceException;
+
+    /**
+     * Finds the reservation using particular reservation @id.
+     * @param id Requested reservation identifier.
+     * @return Reservation with particular @id value.
+     */
+    Reservation findById(Long id);
 }

@@ -4,7 +4,6 @@ import com.training.playgendary.reservation.dao.RoomRepository;
 import com.training.playgendary.reservation.entity.Room;
 import com.training.playgendary.reservation.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -12,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Service("roomService")
-@Repository
 @Transactional
 public class RoomServiceImpl implements RoomService {
     private RoomRepository roomRepository;

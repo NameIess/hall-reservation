@@ -1,5 +1,7 @@
 package com.training.playgendary.reservation.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
@@ -13,6 +15,7 @@ import java.util.Set;
  * Entity class for the Room table mapping
  */
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "Room")
 public class Room implements Serializable {
     private Long id;
@@ -69,7 +72,7 @@ public class Room implements Serializable {
         this.description = description;
     }
 
-    @OneToMany(mappedBy = "room")
+    @OneToMany(mappedBy = "room", fetch = FetchType.EAGER)
     public Set<Reservation> getReservations() {
         return reservations;
     }

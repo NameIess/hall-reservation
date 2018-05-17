@@ -94,6 +94,7 @@ public class ReservationServiceImplTest extends AbstractTestNGSpringContextTests
         List<Reservation> reservations = reservationService.findAllByEmployeeAndDateRange(searchReservationDTO);
         int actualResult = reservations.size();
 
+        System.out.println(reservations);
         Assert.assertEquals(actualResult, expectedResult);
     }
 

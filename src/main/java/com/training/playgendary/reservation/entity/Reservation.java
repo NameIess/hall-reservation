@@ -1,5 +1,7 @@
 package com.training.playgendary.reservation.entity;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
@@ -11,6 +13,7 @@ import java.util.Date;
  * Entity class for the Reservation table mapping
  */
 @Entity
+@JsonIdentityInfo(generator = ObjectIdGenerators.PropertyGenerator.class, property = "id")
 @Table(name = "Reservation")
 public class Reservation implements Serializable {
     private Long id;
@@ -43,7 +46,7 @@ public class Reservation implements Serializable {
         this.employee = employee;
     }
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, fetch = FetchType.EAGER)
     @JoinColumn(name = "room_id")
     public Room getRoom() {
         return room;

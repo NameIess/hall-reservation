@@ -7,6 +7,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -24,6 +25,7 @@ import java.util.Properties;
  */
 @Configuration
 @EnableTransactionManagement
+@EnableSpringDataWebSupport
 @EnableJpaRepositories(basePackages = "com.training.playgendary.reservation")
 @PropertySource("classpath:db/jpa.properties")
 public class JpaConfig {
@@ -55,6 +57,7 @@ public class JpaConfig {
         dataSource.setUrl(env.getProperty("db.url"));
         dataSource.setUsername(env.getProperty("db.username"));
         dataSource.setPassword(env.getProperty("db.password"));
+
         return dataSource;
     }
 
