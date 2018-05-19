@@ -1,6 +1,8 @@
 package com.training.playgendary.reservation.service;
 
 import com.training.playgendary.reservation.entity.Room;
+import com.training.playgendary.reservation.entity.dto.request.PageableDTO;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -30,5 +32,5 @@ public interface RoomService {
      *
      * @return Room list.
      */
-    List<Room> findAll();
+    Page<Room> findAll(PageableDTO pageableDTO);
 }

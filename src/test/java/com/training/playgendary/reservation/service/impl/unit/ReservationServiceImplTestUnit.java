@@ -4,6 +4,8 @@ import com.training.playgendary.reservation.dao.ReservationRepository;
 import com.training.playgendary.reservation.entity.Employee;
 import com.training.playgendary.reservation.entity.Reservation;
 import com.training.playgendary.reservation.entity.Room;
+import com.training.playgendary.reservation.entity.dto.request.PageableAssembler;
+import com.training.playgendary.reservation.entity.dto.request.PageableDTO;
 import com.training.playgendary.reservation.entity.factory.ReservationFactory;
 import com.training.playgendary.reservation.service.EmployeeService;
 import com.training.playgendary.reservation.service.ReservationService;
@@ -13,6 +15,8 @@ import com.training.playgendary.reservation.service.impl.ReservationServiceImpl;
 import com.training.playgendary.reservation.service.validator.DateValidator;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.testng.Assert;
 import resources.TestResources;
 
@@ -29,6 +33,7 @@ public class ReservationServiceImplTestUnit {
     private RoomService roomService;
     private DateValidator dateValidator;
     private ReservationFactory reservationFactory;
+    private PageableAssembler pageableAssembler;
 
     @Before
     public void doSetup() {
@@ -37,17 +42,19 @@ public class ReservationServiceImplTestUnit {
         roomService = mock(RoomService.class);
         dateValidator = mock(DateValidator.class);
         reservationFactory = mock(ReservationFactory.class);
-        underTest = new ReservationServiceImpl(reservationRepository, employeeService, roomService, dateValidator, reservationFactory);
+        pageableAssembler = mock(PageableAssembler.class);
+        underTest = new ReservationServiceImpl(reservationRepository, employeeService, roomService, dateValidator, reservationFactory, pageableAssembler);
     }
 
     @Test
     public void shouldReturnReservationListWhenReservationTableExists() {
         List<Reservation> expectedResult = TestResources.RESERVATIONS;
-        when(underTest.findAll()).thenReturn(expectedResult);
+        when(pageableAssembler.createRequest(any(PageableDTO.class), any(Class.class))).thenReturn(TestResources.UNSORTED_REQUEST);
+        when(reservationRepository.findAll(TestResources.UNSORTED_REQUEST)).thenReturn(new PageImpl<>(expectedResult));
 
-        List<Reservation> actualResult = underTest.findAll();
+        List<Reservation> actualResult = underTest.findAll(new PageableDTO()).getContent();
 
-        verify(reservationRepository, times(1)).findAll();
+        verify(reservationRepository, times(1)).findAll(TestResources.UNSORTED_REQUEST);
         Assert.assertEquals(actualResult, expectedResult);
     }
 

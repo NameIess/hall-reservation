@@ -6,6 +6,10 @@ import com.training.playgendary.reservation.entity.Reservation;
 import com.training.playgendary.reservation.entity.Room;
 import org.junit.Assert;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.testng.AbstractTestNGSpringContextTests;
@@ -30,6 +34,20 @@ public class ReservationRepositoryTest extends AbstractTestNGSpringContextTests 
 
     @Autowired
     private ReservationRepository underTest;
+
+    @Autowired
+    private EmployeeRepository employeeRepository;
+
+    @Test
+    public void test() {
+        Sort sort = new Sort(Sort.Direction.DESC, "id");
+        Pageable pageable = PageRequest.of(1, 7, sort);
+
+        Page<Employee> employees = employeeRepository.findAll(pageable);
+        List<Employee> content = employees.getContent();
+        System.out.println("CNT: " + content);
+
+    }
 
     @DataProvider(name = "validEmployeeAndDates")
     public static Object[][] validEmployeeAndDates() throws ParseException {

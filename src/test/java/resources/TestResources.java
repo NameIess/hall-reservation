@@ -5,6 +5,7 @@ import com.training.playgendary.reservation.entity.Reservation;
 import com.training.playgendary.reservation.entity.Room;
 import com.training.playgendary.reservation.entity.dto.request.SaveReservationDTO;
 import com.training.playgendary.reservation.entity.dto.request.SearchReservationDTO;
+import org.springframework.data.domain.PageRequest;
 import resources.exception.TestDataInitException;
 
 import java.text.DateFormat;
@@ -20,7 +21,7 @@ public class TestResources {
     public static final int TABLE_EMPLOYEE_ROWS_AMOUNT = 11;
     public static final String DATE_TIME_FORMAT = "yyyy-MM-dd HH:mm:ss";
     public static final DateFormat DATE_FORMAT = new SimpleDateFormat(DATE_TIME_FORMAT);
-
+    public static final PageRequest UNSORTED_REQUEST = PageRequest.of(0, 20);
     public static final Employee VALID_EMPLOYEE_ID_1 = new Employee();
     static {
         VALID_EMPLOYEE_ID_1.setId(1L);

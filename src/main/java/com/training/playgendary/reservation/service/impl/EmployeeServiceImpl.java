@@ -2,6 +2,7 @@ package com.training.playgendary.reservation.service.impl;
 
 import com.training.playgendary.reservation.dao.EmployeeRepository;
 import com.training.playgendary.reservation.entity.Employee;
+import com.training.playgendary.reservation.entity.dto.request.PageableAssembler;
 import com.training.playgendary.reservation.entity.dto.request.PageableDTO;
 import com.training.playgendary.reservation.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,10 +18,12 @@ import java.util.Optional;
 @Transactional
 public class EmployeeServiceImpl implements EmployeeService {
     private EmployeeRepository employeeRepository;
+    private PageableAssembler pageableAssembler;
 
     @Autowired
-    public EmployeeServiceImpl(EmployeeRepository employeeRepository) {
+    public EmployeeServiceImpl(EmployeeRepository employeeRepository, PageableAssembler pageableAssembler) {
         this.employeeRepository = employeeRepository;
+        this.pageableAssembler = pageableAssembler;
     }
 
     @Override
@@ -46,11 +49,8 @@ public class EmployeeServiceImpl implements EmployeeService {
     @Override
     @Transactional(readOnly = true)
     public Page<Employee> findAll(PageableDTO pageableDTO) {
-        int pageNumber = pageableDTO.getPageNumber();
-        int pageSize = pageableDTO.getPageSize();
-        Pageable pageable = PageRequest.of(pageNumber, pageSize);
+        Pageable pageable = pageableAssembler.createRequest(pageableDTO, Employee.class);
         Page<Employee> employeePage = employeeRepository.findAll(pageable);
-
         return employeePage;
     }
 }

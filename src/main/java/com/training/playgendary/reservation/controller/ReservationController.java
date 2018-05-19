@@ -38,7 +38,6 @@ public class ReservationController {
     @RequestMapping(value = "/employee", method = RequestMethod.PUT)
     public Page<Employee> findAllEmployees(@RequestBody PageableDTO pageableDTO) {
         Page<Employee> employeePage = employeeService.findAll(pageableDTO);
-
         return employeePage;
     }
 
@@ -54,9 +53,9 @@ public class ReservationController {
         return savedEmployee;
     }
 
-    @RequestMapping(value = "/room", method = RequestMethod.GET)
-    public List<Room> findAllRooms() {
-        List<Room> rooms = roomService.findAll();
+    @RequestMapping(value = "/room", method = RequestMethod.PUT)
+    public Page<Room> findAllRooms(@RequestBody PageableDTO pageableDTO) {
+        Page<Room> rooms = roomService.findAll(pageableDTO);
         return rooms;
     }
 
@@ -72,9 +71,9 @@ public class ReservationController {
         return savedRoom;
     }
 
-    @RequestMapping(value = "/reservation", method = RequestMethod.GET)
-    public List<Reservation> findAllReservations() {
-        List<Reservation> reservations = reservationService.findAll();
+    @RequestMapping(value = "/reservation", method = RequestMethod.PUT)
+    public Page<Reservation> findAllReservations(@RequestBody PageableDTO pageableDTO) {
+        Page<Reservation> reservations = reservationService.findAll(pageableDTO);
         return reservations;
     }
 

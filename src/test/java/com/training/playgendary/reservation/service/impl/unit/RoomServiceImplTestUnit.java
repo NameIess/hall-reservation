@@ -2,10 +2,13 @@ package com.training.playgendary.reservation.service.impl.unit;
 
 import com.training.playgendary.reservation.dao.RoomRepository;
 import com.training.playgendary.reservation.entity.Room;
+import com.training.playgendary.reservation.entity.dto.request.PageableAssembler;
+import com.training.playgendary.reservation.entity.dto.request.PageableDTO;
 import com.training.playgendary.reservation.service.RoomService;
 import com.training.playgendary.reservation.service.impl.RoomServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.data.domain.PageImpl;
 import org.testng.Assert;
 import resources.TestResources;
 
@@ -19,11 +22,13 @@ import static org.mockito.Mockito.*;
 public class RoomServiceImplTestUnit {
     private RoomService underTest;
     private RoomRepository roomRepository;
+    private PageableAssembler pageableAssembler;
 
     @Before
     public void doSetup() {
         roomRepository = mock(RoomRepository.class);
-        underTest = new RoomServiceImpl(roomRepository);
+        pageableAssembler = mock(PageableAssembler.class);
+        underTest = new RoomServiceImpl(roomRepository, pageableAssembler);
     }
 
     @Test
@@ -40,7 +45,7 @@ public class RoomServiceImplTestUnit {
     @Test
     public void shouldSaveRoomAndReturnSavedEntityWhenRoomValid() {
         Room expectedResult = TestResources.VALID_ROOM_ID_1;
-        when(underTest.save(any(Room.class))).thenReturn(expectedResult);
+        when(roomRepository.save(any(Room.class))).thenReturn(expectedResult);
 
         Room actualResult = underTest.save(expectedResult);
 
@@ -51,11 +56,12 @@ public class RoomServiceImplTestUnit {
     @Test
     public void shouldReturnRoomListWhenRoomTableExists() {
         List<Room> expectedResult = TestResources.ROOMS;
-        when(underTest.findAll()).thenReturn(expectedResult);
+        when(pageableAssembler.createRequest(any(PageableDTO.class), any(Class.class))).thenReturn(TestResources.UNSORTED_REQUEST);
+        when(roomRepository.findAll(TestResources.UNSORTED_REQUEST)).thenReturn(new PageImpl<>(expectedResult));
 
-        List<Room> actualResult = underTest.findAll();
+        List<Room> actualResult = underTest.findAll(new PageableDTO()).getContent();
 
-        verify(roomRepository, times(1)).findAll();
+        verify(roomRepository, times(1)).findAll(TestResources.UNSORTED_REQUEST);
         Assert.assertEquals(actualResult, expectedResult);
     }
 }

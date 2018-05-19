@@ -3,6 +3,8 @@ package com.training.playgendary.reservation.controller;
 import com.training.playgendary.reservation.entity.Employee;
 import com.training.playgendary.reservation.entity.Reservation;
 import com.training.playgendary.reservation.entity.Room;
+import com.training.playgendary.reservation.entity.dto.request.PageableAssembler;
+import com.training.playgendary.reservation.entity.dto.request.PageableDTO;
 import com.training.playgendary.reservation.entity.dto.request.SaveReservationDTO;
 import com.training.playgendary.reservation.entity.dto.request.SearchReservationDTO;
 import com.training.playgendary.reservation.service.EmployeeService;
@@ -12,6 +14,8 @@ import com.training.playgendary.reservation.service.exception.ServiceException;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import resources.TestResources;
 
 import java.util.List;
@@ -35,30 +39,30 @@ public class ReservationControllerTest {
 
     @Test
     public void shouldReturnRoomListWhenDataExist() {
-        when(roomService.findAll()).thenReturn(TestResources.ROOMS);
+        when(roomService.findAll(any(PageableDTO.class))).thenReturn(new PageImpl<>(TestResources.ROOMS));
 
-        List<Room> actualResult = underTest.findAllRooms();
-        verify(roomService, times(1)).findAll();
+        List<Room> actualResult = underTest.findAllRooms(new PageableDTO()).getContent();
+        verify(roomService, times(1)).findAll(any(PageableDTO.class));
 
         Assert.assertEquals(actualResult, TestResources.ROOMS);
     }
 
     @Test
     public void shouldReturnEmployeeListWhenDataExist() {
-//        when(employeeService.findAll(pageRequest)).thenReturn(TestResources.EMPLOYEES);
-//
-//        List<Employee> actualResult = underTest.findAllEmployees();
-//        verify(employeeService, times(1)).findAll(pageRequest);
-//
-//        Assert.assertEquals(actualResult, TestResources.EMPLOYEES);
+        when(employeeService.findAll(any(PageableDTO.class))).thenReturn(new PageImpl<>(TestResources.EMPLOYEES));
+
+        List<Employee> actualResult = underTest.findAllEmployees(new PageableDTO()).getContent();
+        verify(employeeService, times(1)).findAll(any(PageableDTO.class));
+
+        Assert.assertEquals(actualResult, TestResources.EMPLOYEES);
     }
 
     @Test
     public void shouldReturnReservationListWhenDataExist() {
-        when(reservationService.findAll()).thenReturn(TestResources.RESERVATIONS);
+        when(reservationService.findAll(any(PageableDTO.class))).thenReturn(new PageImpl<>(TestResources.RESERVATIONS));
 
-        List<Reservation> actualResult = underTest.findAllReservations();
-        verify(reservationService, times(1)).findAll();
+        List<Reservation> actualResult = underTest.findAllReservations(new PageableDTO()).getContent();
+        verify(reservationService, times(1)).findAll(any(PageableDTO.class));
 
         Assert.assertEquals(actualResult, TestResources.RESERVATIONS);
     }

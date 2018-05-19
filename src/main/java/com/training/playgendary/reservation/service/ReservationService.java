@@ -1,9 +1,11 @@
 package com.training.playgendary.reservation.service;
 
 import com.training.playgendary.reservation.entity.Reservation;
+import com.training.playgendary.reservation.entity.dto.request.PageableDTO;
 import com.training.playgendary.reservation.entity.dto.request.SaveReservationDTO;
 import com.training.playgendary.reservation.entity.dto.request.SearchReservationDTO;
 import com.training.playgendary.reservation.service.exception.ServiceException;
+import org.springframework.data.domain.Page;
 
 import java.util.List;
 
@@ -17,7 +19,7 @@ public interface ReservationService {
      *
      * @return Reservation list.
      */
-    List<Reservation> findAll();
+    Page<Reservation> findAll(PageableDTO pageableDTO);
 
     /**
      * Validates and saves particular entity into data source.

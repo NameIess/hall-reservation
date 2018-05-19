@@ -4,6 +4,8 @@ import com.training.playgendary.reservation.dao.ReservationRepository;
 import com.training.playgendary.reservation.entity.Employee;
 import com.training.playgendary.reservation.entity.Reservation;
 import com.training.playgendary.reservation.entity.Room;
+import com.training.playgendary.reservation.entity.dto.request.PageableAssembler;
+import com.training.playgendary.reservation.entity.dto.request.PageableDTO;
 import com.training.playgendary.reservation.entity.dto.request.SaveReservationDTO;
 import com.training.playgendary.reservation.entity.dto.request.SearchReservationDTO;
 import com.training.playgendary.reservation.entity.factory.ReservationFactory;
@@ -13,7 +15,8 @@ import com.training.playgendary.reservation.service.RoomService;
 import com.training.playgendary.reservation.service.exception.ServiceException;
 import com.training.playgendary.reservation.service.validator.DateValidator;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,20 +32,30 @@ public class ReservationServiceImpl implements ReservationService {
     private RoomService roomService;
     private DateValidator dateValidator;
     private ReservationFactory reservationFactory;
+    private PageableAssembler pageableAssembler;
 
     @Autowired
-    public ReservationServiceImpl(ReservationRepository reservationRepository, EmployeeService employeeService, RoomService roomService, DateValidator dateValidator, ReservationFactory reservationFactory) {
+    public ReservationServiceImpl(
+            ReservationRepository reservationRepository,
+            EmployeeService employeeService,
+            RoomService roomService,
+            DateValidator dateValidator,
+            ReservationFactory reservationFactory,
+            PageableAssembler pageableAssembler
+    ) {
         this.reservationRepository = reservationRepository;
         this.employeeService = employeeService;
         this.roomService = roomService;
         this.dateValidator = dateValidator;
         this.reservationFactory = reservationFactory;
+        this.pageableAssembler = pageableAssembler;
     }
 
     @Override
     @Transactional(readOnly = true)
-    public List<Reservation> findAll() {
-        List<Reservation> reservations = reservationRepository.findAll();
+    public Page<Reservation> findAll(PageableDTO pageableDTO) {
+        Pageable pageable = pageableAssembler.createRequest(pageableDTO, Reservation.class);
+        Page<Reservation> reservations = reservationRepository.findAll(pageable);
         return reservations;
     }
 

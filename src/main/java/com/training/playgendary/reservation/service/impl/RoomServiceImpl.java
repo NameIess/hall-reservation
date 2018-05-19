@@ -2,22 +2,27 @@ package com.training.playgendary.reservation.service.impl;
 
 import com.training.playgendary.reservation.dao.RoomRepository;
 import com.training.playgendary.reservation.entity.Room;
+import com.training.playgendary.reservation.entity.dto.request.PageableAssembler;
+import com.training.playgendary.reservation.entity.dto.request.PageableDTO;
 import com.training.playgendary.reservation.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
 import java.util.Optional;
 
 @Service("roomService")
 @Transactional
 public class RoomServiceImpl implements RoomService {
     private RoomRepository roomRepository;
+    private PageableAssembler pageableAssembler;
 
     @Autowired
-    public RoomServiceImpl(RoomRepository roomRepository) {
+    public RoomServiceImpl(RoomRepository roomRepository, PageableAssembler pageableAssembler) {
         this.roomRepository = roomRepository;
+        this.pageableAssembler = pageableAssembler;
     }
 
     @Override
@@ -42,8 +47,9 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<Room> findAll() {
-        List<Room> rooms = roomRepository.findAll();
+    public Page<Room> findAll(PageableDTO pageableDTO) {
+        Pageable pageable = pageableAssembler.createRequest(pageableDTO, Room.class);
+        Page<Room> rooms = roomRepository.findAll(pageable);
         return rooms;
     }
 }
