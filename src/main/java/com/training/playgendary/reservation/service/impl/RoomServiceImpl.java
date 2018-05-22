@@ -2,7 +2,7 @@ package com.training.playgendary.reservation.service.impl;
 
 import com.training.playgendary.reservation.dao.RoomRepository;
 import com.training.playgendary.reservation.entity.Room;
-import com.training.playgendary.reservation.entity.dto.request.PageableAssembler;
+import com.training.playgendary.reservation.entity.dto.request.assembler.PageableAssembler;
 import com.training.playgendary.reservation.entity.dto.request.PageableDTO;
 import com.training.playgendary.reservation.service.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +50,11 @@ public class RoomServiceImpl implements RoomService {
     public Page<Room> findAll(PageableDTO pageableDTO) {
         Pageable pageable = pageableAssembler.createRequest(pageableDTO, Room.class);
         Page<Room> rooms = roomRepository.findAll(pageable);
+
+        rooms.forEach(e -> {
+            e.getReservations().size();
+        });
+
         return rooms;
     }
 }

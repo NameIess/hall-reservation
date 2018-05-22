@@ -3,9 +3,6 @@ package com.training.playgendary.reservation.service;
 import com.training.playgendary.reservation.entity.Employee;
 import com.training.playgendary.reservation.entity.dto.request.PageableDTO;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-
-import java.util.List;
 
 /**
  * Contains the basic methods for interacting with the Employee entity.
@@ -31,8 +28,8 @@ public interface EmployeeService {
     /**
      * Finds all employees that are stored in data source.
      *
-     * @return Employee list.
      * @param pageableDTO
+     * @return Employee list.
      */
     Page<Employee> findAll(PageableDTO pageableDTO);
 }

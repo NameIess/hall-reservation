@@ -4,7 +4,7 @@ import com.training.playgendary.reservation.dao.ReservationRepository;
 import com.training.playgendary.reservation.entity.Employee;
 import com.training.playgendary.reservation.entity.Reservation;
 import com.training.playgendary.reservation.entity.Room;
-import com.training.playgendary.reservation.entity.dto.request.PageableAssembler;
+import com.training.playgendary.reservation.entity.dto.request.assembler.PageableAssembler;
 import com.training.playgendary.reservation.entity.dto.request.PageableDTO;
 import com.training.playgendary.reservation.entity.dto.request.SaveReservationDTO;
 import com.training.playgendary.reservation.entity.dto.request.SearchReservationDTO;

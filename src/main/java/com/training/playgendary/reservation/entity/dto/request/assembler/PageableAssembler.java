@@ -1,5 +1,6 @@
-package com.training.playgendary.reservation.entity.dto.request;
+package com.training.playgendary.reservation.entity.dto.request.assembler;
 
+import com.training.playgendary.reservation.entity.dto.request.PageableDTO;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

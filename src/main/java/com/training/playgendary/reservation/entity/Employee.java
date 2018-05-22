@@ -70,7 +70,7 @@ public class Employee implements Serializable {
         this.personalNumber = personal_number;
     }
 
-    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "employee", fetch = FetchType.LAZY)
     public Set<Reservation> getReservations() {
         return reservations;
     }

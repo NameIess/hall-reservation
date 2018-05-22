@@ -102,5 +102,10 @@ public class DateValidatorTest extends AbstractTestNGSpringContextTests {
     @Test(dataProvider = "invalidStartTimeInvalidEndTime")
     public void shouldReturnFalseWhenStartTimeInvalidAndEndTimeInvalid(Date startTime, Date endTime) {
         verifyNegativeCase(startTime, endTime);
+    };
+
+    @Test()
+    public void test() {
+        Assert.assertTrue(true);
     }
 }

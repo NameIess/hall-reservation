@@ -2,7 +2,7 @@
 //
 //import com.training.playgendary.reservation.config.TestConfig;
 //import com.training.playgendary.reservation.entity.Employee;
-//import com.training.playgendary.reservation.entity.dto.request.PageableAssembler;
+//import com.training.playgendary.reservation.entity.dto.request.assembler.PageableAssembler;
 //import com.training.playgendary.reservation.entity.dto.request.PageableDTO;
 //import com.training.playgendary.reservation.service.EmployeeService;
 //import org.springframework.beans.factory.annotation.Autowired;

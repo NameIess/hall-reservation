@@ -4,7 +4,7 @@ import com.training.playgendary.reservation.dao.ReservationRepository;
 import com.training.playgendary.reservation.entity.Employee;
 import com.training.playgendary.reservation.entity.Reservation;
 import com.training.playgendary.reservation.entity.Room;
-import com.training.playgendary.reservation.entity.dto.request.PageableAssembler;
+import com.training.playgendary.reservation.entity.dto.request.assembler.PageableAssembler;
 import com.training.playgendary.reservation.entity.dto.request.PageableDTO;
 import com.training.playgendary.reservation.entity.factory.ReservationFactory;
 import com.training.playgendary.reservation.service.EmployeeService;
@@ -16,7 +16,6 @@ import com.training.playgendary.reservation.service.validator.DateValidator;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Pageable;
 import org.testng.Assert;
 import resources.TestResources;
 

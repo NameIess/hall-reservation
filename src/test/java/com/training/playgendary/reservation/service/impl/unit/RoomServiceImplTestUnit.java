@@ -2,7 +2,7 @@ package com.training.playgendary.reservation.service.impl.unit;
 
 import com.training.playgendary.reservation.dao.RoomRepository;
 import com.training.playgendary.reservation.entity.Room;
-import com.training.playgendary.reservation.entity.dto.request.PageableAssembler;
+import com.training.playgendary.reservation.entity.dto.request.assembler.PageableAssembler;
 import com.training.playgendary.reservation.entity.dto.request.PageableDTO;
 import com.training.playgendary.reservation.service.RoomService;
 import com.training.playgendary.reservation.service.impl.RoomServiceImpl;

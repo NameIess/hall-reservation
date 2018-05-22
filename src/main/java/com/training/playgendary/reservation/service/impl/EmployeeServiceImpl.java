@@ -2,12 +2,11 @@ package com.training.playgendary.reservation.service.impl;
 
 import com.training.playgendary.reservation.dao.EmployeeRepository;
 import com.training.playgendary.reservation.entity.Employee;
-import com.training.playgendary.reservation.entity.dto.request.PageableAssembler;
 import com.training.playgendary.reservation.entity.dto.request.PageableDTO;
+import com.training.playgendary.reservation.entity.dto.request.assembler.PageableAssembler;
 import com.training.playgendary.reservation.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -51,6 +50,11 @@ public class EmployeeServiceImpl implements EmployeeService {
     public Page<Employee> findAll(PageableDTO pageableDTO) {
         Pageable pageable = pageableAssembler.createRequest(pageableDTO, Employee.class);
         Page<Employee> employeePage = employeeRepository.findAll(pageable);
+
+        employeePage.forEach(e -> {
+            e.getReservations().size();
+        });
+
         return employeePage;
     }
 }
